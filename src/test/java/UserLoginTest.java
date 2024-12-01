@@ -1,4 +1,6 @@
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.User;
@@ -54,6 +56,8 @@ public class UserLoginTest {
         };
     }
 
+    @DisplayName("Send variable POST requests to /api/auth/login and compare Status Code with 200 or 401")
+    @Description("Test for login of already existing user with correct data and incorrect data")
     @Test
     public void loginOfUserTest () {
         UserWithCreds userWithCreds = new UserWithCreds(email, password);

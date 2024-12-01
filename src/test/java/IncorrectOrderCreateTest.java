@@ -1,5 +1,7 @@
 import clients.OrderClient;
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.Order;
@@ -51,7 +53,8 @@ public class IncorrectOrderCreateTest {
     }
 
 
-
+    @DisplayName("Send POST request to /api/orders and compare Status Code with 500")
+    @Description("Test for impossibility of creation of an order for logged user with invalid ingredients data")
     @Test
     public void incorrectOrderCreateTest () {
         orderClient = new OrderClient();
@@ -62,6 +65,8 @@ public class IncorrectOrderCreateTest {
         System.out.println(response.body().asString());
     }
 
+    @DisplayName("Send POST request to /api/orders and compare Status Code with 500")
+    @Description("Test for impossibility of creation of an order for not logged user with invalid ingredients data")
     @Test
     public void incorrectOrderWithoutAuthTest () {
         orderClient = new OrderClient();

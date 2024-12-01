@@ -1,4 +1,5 @@
 import clients.UserClient;
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -21,7 +22,8 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName(" ")
+    @DisplayName("Send POST request to /api/auth/register and compare Status Code with 200")
+    @Description("Test for creation of a new user")
     public void creationOfUser () {
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();
@@ -31,19 +33,12 @@ public class UserTest {
                 .and()
                 .body("success", equalTo(true));
 
-
-//        System.out.println(response.body().asString());
         token = response.as(UserToken.class).getAccessToken();
-        System.out.println(token);
-
     }
 
     @After
     public void deleteOfUser () {
-        System.out.println(token);
         Response response = userClient.delete(token);
-        System.out.println(response.body().asString());
         response.then().assertThat().statusCode(202);
-
     }
 }

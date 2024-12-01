@@ -1,4 +1,6 @@
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.User;
@@ -29,6 +31,8 @@ public class ExistingUserTest {
     }
 
     @Test
+    @DisplayName("Send POST request to /api/auth/register and compare Status Code with 403")
+    @Description("Test for double creation of already existing user")
     public void creationOfExistingUser () {
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();

@@ -1,4 +1,6 @@
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.User;
@@ -36,6 +38,8 @@ public class ParameterizedClientTest {
         };
     }
 
+    @DisplayName("Send POST request to /api/auth/register and compare Status Code with 400")
+    @Description("Test for impossible creation of a new user with invalid data")
     @Test
     public void creationOfExistingUser () {
         User user = new User(email, password, name);

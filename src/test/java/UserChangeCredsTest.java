@@ -1,4 +1,6 @@
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.User;
@@ -37,7 +39,6 @@ public class UserChangeCredsTest {
         Response response = userClient.create(user);
         response.then().assertThat().statusCode(200);
         token = response.as(UserToken.class).getAccessToken();
-        System.out.println(token);
 
         UserWithCreds userWithCreds = new UserWithCreds("test999999@test.com", "999999");
         Response responseLogin = userClient.login(userWithCreds);
@@ -46,7 +47,6 @@ public class UserChangeCredsTest {
                 .body("success", equalTo(true));
 
         loginToken = responseLogin.as(UserToken.class).getAccessToken();
-        System.out.println(loginToken);
     }
 
     @Parameterized.Parameters
@@ -58,6 +58,8 @@ public class UserChangeCredsTest {
         };
     }
 
+    @DisplayName("Send PATCH request to /api/auth/user and compare Status Code with 200")
+    @Description("Test for change of data of existing user")
     @Test
     public void changeUserCredsTest () {
         UserWithCredsForChange userWithCredsForChange = new UserWithCredsForChange(email, name);
@@ -71,11 +73,8 @@ public class UserChangeCredsTest {
 
     @After
     public void deleteOfUser () {
-        System.out.println(token);
         Response response = userClient.delete(token);
-        System.out.println(response.body().asString());
         response.then().assertThat().statusCode(202);
-
     }
 
 }

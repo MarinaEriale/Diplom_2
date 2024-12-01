@@ -1,5 +1,7 @@
 import clients.OrderClient;
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.Order;
@@ -62,7 +64,8 @@ public class GetOrdersTest {
     }
 
 
-
+    @DisplayName("Send GET request to /api/orders and compare Status Code with 200")
+    @Description("Test for getting of all orders of logged user")
     @Test
     public void getOrderTest () {
         Response response = orderClient.get(loginToken);

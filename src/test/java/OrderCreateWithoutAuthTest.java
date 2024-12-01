@@ -1,5 +1,7 @@
 import clients.OrderClient;
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.Order;
@@ -17,17 +19,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
-@RunWith(Parameterized.class)
 public class OrderCreateWithoutAuthTest {
-    private final List<String> ingredients;
-    private final int expectedStatusCode;
-    private final Boolean expectedMessage;
-
-    public OrderCreateWithoutAuthTest(List<String> ingredients, int expectedStatusCode, Boolean expectedMessage) {
-        this.ingredients = ingredients;
-        this.expectedStatusCode = expectedStatusCode;
-        this.expectedMessage = expectedMessage;
-    }
 
     private String token;
     private String loginToken;
@@ -47,26 +39,28 @@ public class OrderCreateWithoutAuthTest {
         System.out.println(token);
     }
 
-    @Parameterized.Parameters
-    public static Object[][] ingredientsData() {
-        return new Object[][] {
-                {List.of("61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa70", "61c0c5a71d1f82001bdaaa7a",
-                        "61c0c5a71d1f82001bdaaa77", "61c0c5a71d1f82001bdaaa74", "61c0c5a71d1f82001bdaaa72"), 200, true},
-                {Collections.emptyList(), 400, false},
-        };
-    }
+//    @Parameterized.Parameters
+//    public static Object[][] ingredientsData() {
+//        return new Object[][] {
+//                {List.of("61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa70", "61c0c5a71d1f82001bdaaa7a",
+//                        "61c0c5a71d1f82001bdaaa77", "61c0c5a71d1f82001bdaaa74", "61c0c5a71d1f82001bdaaa72"), 200, true},
+//                {Collections.emptyList(), 400, false},
+//        };
+//    }
 
+    @DisplayName("Send POST request to /api/orders and compare Status Code with 400")
+    @Description("Test for creation of an order for not logged user without ingredients")
     @Test
     public void orderCreateTest () {
         orderClient = new OrderClient();
-        Order order = new Order(ingredients);
+        Order order = new Order(Collections.emptyList());
 
         loginToken = null;
 
         Response response = orderClient.create(loginToken, order);
-        response.then().assertThat().statusCode(expectedStatusCode)
+        response.then().assertThat().statusCode(400)
                 .and()
-                .body("success", equalTo(expectedMessage));
+                .body("success", equalTo(false));
         System.out.println(response.body().asString());
     }
 

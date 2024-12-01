@@ -1,4 +1,6 @@
 import clients.UserClient;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.User;
@@ -47,6 +49,8 @@ public class UserChangeCredsWithoutAuth {
             };
         }
 
+        @DisplayName("Send PATCH request to /api/auth/user and compare Status Code with 401")
+        @Description("Test for impossibility of change of data of not logged user")
         @Test
         public void changeUserCredsTest () {
             UserWithCredsForChange userWithCredsForChange = new UserWithCredsForChange(email, name);
