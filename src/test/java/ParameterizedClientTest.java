@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 @RunWith(Parameterized.class)
-public class ParameterizedClientTest {
+public class ParameterizedClientTest extends RootTest{
     private UserClient userClient;
     private final String email;
     private final String password;
@@ -22,11 +22,6 @@ public class ParameterizedClientTest {
         this.email = email;
         this.password = password;
         this.name = name;
-    }
-
-    @Before
-    public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
     }
 
     @Parameterized.Parameters

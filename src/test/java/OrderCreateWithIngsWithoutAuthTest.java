@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class OrderCreateWithIngsWithoutAuthTest {
+public class OrderCreateWithIngsWithoutAuthTest extends RootTest{
 
 
     private String token;
@@ -28,7 +28,6 @@ public class OrderCreateWithIngsWithoutAuthTest {
 
     @Before
     public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
 
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();
@@ -51,14 +50,6 @@ public class OrderCreateWithIngsWithoutAuthTest {
         }
     }
 
-//    @Parameterized.Parameters
-//    public static Object[][] ingredientsData() {
-//        return new Object[][] {
-//                {List.of("61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa70", "61c0c5a71d1f82001bdaaa7a",
-//                        "61c0c5a71d1f82001bdaaa77", "61c0c5a71d1f82001bdaaa74", "61c0c5a71d1f82001bdaaa72"), 200, true},
-//                {Collections.emptyList(), 400, false},
-//        };
-//    }
 
     @DisplayName("Send POST request to /api/orders and compare Status Code with 200")
     @Description("Test for creation of an order for not logged user with valid ingredients data")

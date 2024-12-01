@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(Parameterized.class)
-public class UserChangeCredsTest {
+public class UserChangeCredsTest extends RootTest{
     private UserClient userClient;
     private String token;
     private String loginToken;
@@ -31,8 +31,7 @@ public class UserChangeCredsTest {
 
     @Before
     public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
-
+        
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();
 

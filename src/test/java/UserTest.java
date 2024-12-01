@@ -12,14 +12,10 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
-public class UserTest {
+public class UserTest extends RootTest{
     private UserClient userClient;
     private String token;
 
-    @Before
-    public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
-    }
 
     @Test
     @DisplayName("Send POST request to /api/auth/register and compare Status Code with 200")

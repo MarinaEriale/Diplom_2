@@ -20,7 +20,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 
-public class IncorrectOrderCreateTest {
+public class IncorrectOrderCreateTest extends RootTest{
     private List<String> ingredients;
     private int expectedStatusCode;
     private Boolean expectedMessage;
@@ -32,7 +32,6 @@ public class IncorrectOrderCreateTest {
 
     @Before
     public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
 
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();

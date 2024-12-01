@@ -18,7 +18,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 
-public class OrderCreateWithIngsTest {
+public class OrderCreateWithIngsTest extends RootTest{
 
     private String token;
     private String loginToken;
@@ -28,7 +28,6 @@ public class OrderCreateWithIngsTest {
 
     @Before
     public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
 
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();

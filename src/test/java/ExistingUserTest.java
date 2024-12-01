@@ -12,15 +12,13 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
-public class ExistingUserTest {
+public class ExistingUserTest extends RootTest{
 
     private UserClient userClient;
     private String token;
 
     @Before
     public void setUp () {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
-
         User user = new User("test999999@test.com", "999999", "Testovy_9");
         userClient = new UserClient();
 
