@@ -46,20 +46,17 @@ public class OrderCreateWithIngsTest extends RootTest{
         loginToken = responseLogin.as(UserToken.class).getAccessToken();
         System.out.println(loginToken);
 
+        OrderClient orderClient = new OrderClient();
+        Response responseIngredients = orderClient.getIngredients();
 
+        AllIngredientsResponse allIngredientsResponse = responseIngredients.body().as(AllIngredientsResponse.class);
 
-            OrderClient orderClient = new OrderClient();
-            Response responseIngredients = orderClient.getIngredients();
+        ids = new ArrayList<>();
 
-
-            AllIngredientsResponse allIngredientsResponse = responseIngredients.body().as(AllIngredientsResponse.class);
-
-            ids = new ArrayList<>();
-
-            List<DataElement> ingredients = allIngredientsResponse.getData();
-            for (DataElement ingredient : ingredients) {
+        List<DataElement> ingredients = allIngredientsResponse.getData();
+        for (DataElement ingredient : ingredients) {
                 ids.add(ingredient.get_id());
-            }
+        }
 
 //            System.out.println(ids);
     }

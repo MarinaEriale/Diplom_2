@@ -4,16 +4,14 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import models.Order;
-import models.User;
-import models.UserToken;
-import models.UserWithCreds;
+import models.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +28,7 @@ public class GetOrdersTest extends RootTest{
     private String loginToken;
     private UserClient userClient;
     private OrderClient orderClient;
+    private static List<String> ids;
 
     @Before
     public void setUp () {
@@ -52,8 +51,19 @@ public class GetOrdersTest extends RootTest{
         System.out.println(loginToken);
 
         orderClient = new OrderClient();
-        Order order = new Order(List.of("61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa70", "61c0c5a71d1f82001bdaaa7a",
-                "61c0c5a71d1f82001bdaaa77", "61c0c5a71d1f82001bdaaa74", "61c0c5a71d1f82001bdaaa72"));
+
+        Response responseIngredients = orderClient.getIngredients();
+
+        AllIngredientsResponse allIngredientsResponse = responseIngredients.body().as(AllIngredientsResponse.class);
+
+        ids = new ArrayList<>();
+
+        List<DataElement> ingredients = allIngredientsResponse.getData();
+        for (DataElement ingredient : ingredients) {
+            ids.add(ingredient.get_id());
+        }
+
+        Order order = new Order(ids);
 
         Response orderResponse = orderClient.create(loginToken, order);
         orderResponse.then().assertThat().statusCode(200)
