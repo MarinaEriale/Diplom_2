@@ -1,0 +1,13 @@
+OrderCreateWithIngsTest.class
+UserTest.class
+UserChangeCredsTest.class
+RootTest.class
+UserLoginTest.class
+OrderCreateWithoutIngsTest.class
+GetOrdersTest.class
+ParameterizedClientTest.class
+UserChangeCredsWithoutAuthTest.class
+ExistingUserTest.class
+OrderCreateWithIngsWithoutAuthTest.class
+IncorrectOrderCreateTest.class
+OrderCreateWithoutAuthTest.class
